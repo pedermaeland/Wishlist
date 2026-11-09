@@ -1,0 +1,20 @@
+import fs from 'node:fs/promises'; import {Workbook,SpreadsheetFile} from 'file:///C:/Users/padde/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@oai/artifact-tool/dist/artifact_tool.mjs';
+const w=Workbook.create(),s=w.worksheets.add('Comparison'),n=w.worksheets.add('Sources');s.showGridLines=false;n.showGridLines=false;
+s.getRange('A2').values=[['Internet + TV family cost comparison | 27 October 2026']];
+s.getRange('A4:J4').values=[['Configuration','Mb/s','Internet / bundle','TV monthly','Monthly total','Apple TV','Other setup','First year','Monthly saving','Year 1 saving']];
+s.getRange('A5:D10').values=[['Current Altibox + TV 2',500,1500,109],['Current + Apple TV',500,1500,109],['Eidsiva + Strim',500,1119,399],['Eidsiva + Strim',1000,1419,399],['Bahnhof + Strim',500,839,399],['Bahnhof + Strim',1000,999,399]];
+s.getRange('A14:B17').values=[['EDITABLE INPUTS (NOK)',null],['Apple TV purchase',3290],['Strim monthly',399],['Other setup (unknown)',0]];
+for(let r=5;r<=10;r++){if(r>=7)s.getRange('D'+r).formulas=[['=$B$16']];s.getRange('E'+r).formulas=[['=C'+r+'+D'+r]];s.getRange('F'+r).formulas=[[r===5?'=0':'=$B$15']];s.getRange('G'+r).formulas=[[r===5?'=0':'=$B$17']];s.getRange('H'+r).formulas=[['=E'+r+'*12+F'+r+'+G'+r]];s.getRange('I'+r).formulas=[['=$E$5-E'+r]];s.getRange('J'+r).formulas=[['=$H$5-H'+r]];}
+const notes=['Netflix excluded from ALL totals: unknown price, retained unchanged.','Positive saving = cheaper than today. Current bill approximately 1,609 kr before Netflix.','Eidsiva prices are secondary-source figures, not a confirmed quote.','Bahnhof availability unconfirmed; delivered via parts of Telenor fibre network.','Apple TV reference: third generation 128 GB Ethernet, 3,290 kr; edit to actual purchase price.','Strim replaces separate TV 2 Play. Includes ads. NRK, TV 2 and TVNorge covered.','Setup defaults to zero because unknown: add installation, router, cancellation and cables.','No introductory discounts assumed. Comparison assumes unchanged prices over first year.'];
+for(let i=0;i<notes.length;i++)s.getRange('A'+(20+i)).values=[[notes[i]]];
+n.getRange('A2:C7').values=[['Item','Source','Status'],['Current bill','User reported 1500 + 109 + Netflix','Approximate; Netflix excluded'],['Bahnhof','https://bahnhof.no/privat/kundeservice/','Official list 9 Oct 2026: 500 839; 1000 999'],['Eidsiva','https://privatabonnement.no/internett/eidsiva/','Secondary source: 500 1119; 1000 1419'],['Strim','https://www.strim.no/bli-kunde/tilpass?productIds=fu98j&productIds=ne5hv','Smart 399; checked 27 Oct 2026'],['Apple TV','https://www.apple.com/no/shop/buy-tv/apple-tv-4k/64gb','128 GB Ethernet reference 3290; checked 27 Oct 2026']];
+for(const sh of [s,n]){sh.getUsedRange().format.font.name='Arial';sh.getUsedRange().format.font.size=11;sh.getUsedRange().format.rowHeight=27;}
+s.getRange('A2').format.font.size=16;s.getRange('A2').format.font.bold=true;s.getRange('A4:J4').format.fill='#263C50';s.getRange('A4:J4').format.font.color='#FFFFFF';s.getRange('A4:J4').format.wrapText=true;s.getRange('A4:J4').format.rowHeight=42;
+s.getRange('A5:J5').format.fill='#E7ECF2';s.getRange('A9:J10').format.fill='#E9F3E9';s.getRange('B15:B17').format.fill='#FFF0BE';s.getRange('B15:B17').format.font.color='#1764B0';
+s.getRange('A1:A27').format.columnWidth=31;s.getRange('B1:B27').format.columnWidth=12;s.getRange('C1:J27').format.columnWidth=17;s.getRange('C5:J10').setNumberFormat('#,##0 "kr";[Red]-#,##0 "kr"');s.getRange('B15:B17').setNumberFormat('#,##0 "kr"');
+n.getRange('A1:A8').format.columnWidth=20;n.getRange('B1:B8').format.columnWidth=95;n.getRange('C1:C8').format.columnWidth=65;
+await w.recalculate();console.log((await w.inspect({kind:'region',sheetId:'Comparison',range:'E5:J10',maxChars:4000,tableMaxCols:6,tableMaxRows:6})).ndjson);
+await fs.mkdir('outputs/tv-comparison',{recursive:true});await(await SpreadsheetFile.exportXlsx(w)).save('outputs/tv-comparison/Internet-TV-Comparison.xlsx');
+const p=await w.render({sheetName:'Comparison',range:'A4:J10',scale:1.5,format:'png'});await fs.writeFile('preview.png',new Uint8Array(await p.arrayBuffer()));
+
+

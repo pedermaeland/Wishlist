@@ -1,0 +1,111 @@
+/* ==========================================================
+   Branch art: stem, twigs and outlined leaves
+   ========================================================== */
+
+.branch-art {
+    position: absolute;
+    right: 0;
+    top: 0rem;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+    width: min(100%, clamp(8rem, 60vw, 31rem));
+    height: auto;
+    margin: 0 0 2rem;
+    color: var(--color-accent);
+    --branch-time-scale: 1;
+}
+
+/* These white strokes live inside SVG masks. Drawing each stroke reveals
+   the original tapered shape without changing its outline. */
+.branch-reveal {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: branch-draw var(--branch-duration) linear var(--branch-delay) both;
+}
+
+/* Each leaf keeps its outline and veins, growing from its attachment point.
+   Timing and attachment coordinates are set on the individual SVG paths. */
+.branch-leaf {
+    transform-box: view-box;
+    transform-origin: var(--leaf-x) var(--leaf-y);
+    animation: branch-leaf-open 700ms ease-out var(--branch-delay) both;
+}
+
+.branch-reveal {
+    animation-duration:
+        calc(var(--branch-duration) * var(--branch-time-scale));
+}
+
+.branch-leaf {
+    animation-duration:
+        calc(700ms * var(--branch-time-scale));
+}
+
+.branch-reveal,
+.branch-leaf {
+    animation-delay:
+        calc(var(--branch-delay) * var(--branch-time-scale));
+    animation-play-state: paused;
+}
+
+.branch-animation-started .branch-reveal,
+.branch-animation-started .branch-leaf {
+    animation-play-state: running;
+}
+
+.branch-animation-complete .branch-reveal {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+}
+
+.branch-animation-complete .branch-leaf {
+    animation: none;
+    transform: none;
+    opacity: 1;
+}
+
+@keyframes branch-draw {
+    from {
+        stroke-dashoffset: 1;
+        opacity: 0;
+    }
+    1% {
+        opacity: 1;
+    }
+    to {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes branch-leaf-open {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .branch-animation-started .branch-reveal {
+        animation: none;
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    .branch-animation-started .branch-leaf {
+        animation: none;
+        transform: none;
+        opacity: 1;
+    }
+}

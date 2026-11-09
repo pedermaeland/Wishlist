@@ -1,0 +1,1158 @@
+/* ==========================================================
+   1. Theme: colors and corner sizes
+   ========================================================== */
+
+:root {
+    --page-padding: 2rem;
+    
+    color-scheme: dark;
+
+    --color-background: #1d1310;
+    --color-surface: #31211d;
+    --color-surface-muted: #45302a;
+
+    --color-text: #f3eadf;
+    --color-text-muted: #c7b5a8;
+    --color-text-dark: #000000;
+    --color-border: #594138;
+
+    --color-accent: #d0aa79;
+    --color-accent-hover: #e2be91;
+    --color-accent-red: #bd8178;
+    --color-on-accent: #281a17;
+    --color-accent-soft: #d0aa7933;
+
+    --color-accent-walnut-soft: #d0aa7926;
+    --color-accent-walnut: #d7b99b;
+
+    --color-youtube-red-soft: rgba(255, 90, 90, 0.16);
+    --color-youtube-red: #ff7777;
+    --color-article-blue-soft: rgba(116, 166, 214, 0.2);
+
+    --superelipse-radius-xxs: clamp(3px, 2vw, 0.5rem);
+    --superelipse-radius-xs: clamp(4px, 3vw, 1rem);
+    --superelipse-radius-sm: clamp(8px, 4vw, 2rem);
+    --superelipse-radius-md: clamp(12px, 5vw, 3em);
+    --superelipse-radius-lg: clamp(16px, 6vw, 4rem);
+    --superelipse-radius-xl: clamp(20px, 7vw, 5rem);
+    --superelipse-radius: var(--superelipse-radius-lg);
+
+    --border-radius-xxsmall: var(--superelipse-radius-xxs);
+    --border-radius-xsmall: var(--superelipse-radius-xs);
+    --border-radius-small: var(--superelipse-radius-sm);
+    --border-radius-medium: var(--superelipse-radius-md);
+    --border-radius-large: var(--superelipse-radius-lg);
+
+    --corner-shape: superellipse(2);
+}
+
+/* ==========================================================
+   2. Base: typography, links and focus
+   ========================================================== */
+
+* {
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: -apple-system, "Inter", sans-serif;
+    line-height: 1.6;
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: var(--page-padding);
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 3rem 0 1rem;
+}
+
+h1 span.sub-header {
+    display: block;
+    margin-top: 5px;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin: 0 0 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+a {
+    color: var(--color-accent);
+    text-underline-offset: 0.2em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    a:hover {
+        color: var(--color-accent-hover);
+    }
+}
+
+a:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+p {
+    color: var(--color-text-muted);
+}
+
+dt {
+    font-weight: 600;
+}
+
+dd {
+    color: var(--color-text-muted);
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+}
+
+.price-dd {
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    margin-right: auto;
+}
+
+/* ==========================================================
+   -Dialog
+   ========================================================== */
+
+dialog {
+    height: fit-content;
+    width: fit-content;
+    padding: 4rem 6rem;
+    background-color: var(--color-background);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--border-radius-small);
+}
+
+dialog h2 {
+    text-align: center;
+    font-size: clamp(1.5rem, 8vw, 4rem);
+}
+
+dialog span {
+    font-size: clamp(0.75rem, 4vw, 2rem);
+}
+
+#visitor-dialog form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#velg {
+    padding: 10px;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    width: clamp(10rem, 20vw, 15rem);
+    height: 100%;
+    border-radius: 999px;
+    border: 3px solid var(--color-accent-hover);
+    background-color: var(--color-background);
+
+}
+
+#submit {
+    width: clamp(12rem, 24vw, 16rem);
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: var(--color-accent);
+    color: var(--color-text-dark);
+    padding: 0.8rem;
+    border-radius: 999px;
+    border: 3px solid var(--color-accent-hover);
+}
+
+@media (max-width: 46rem) {
+    dialog {
+        padding: 2rem 4rem;
+        border: 1px solid var(--color-accent-hover);
+    }
+    #velg {
+        border: 2px solid var(--color-accent-hover); 
+    }
+}
+
+#visitor-dialog::backdrop {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgb(0 0 0 / 15%);
+}
+
+
+
+
+
+
+/* ==========================================================
+   3. Page header, navigation and footer
+   ========================================================== */
+
+.site-header a {
+    padding: 0.3rem 0.5rem;
+    font-weight: 700;
+    font-family: "Nunito Sans", sans-serif;
+    text-decoration: none;
+    background: var(--color-background);
+    color: var(--color-accent);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-xsmall);
+
+    transition: border 100ms ease;
+}
+
+.site-header a:hover {
+    border: 2px solid var(--color-border);
+}
+
+/* Keep arrow symbols in the system font while button text uses Nunito Sans. */
+.button-arrow {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+}
+
+nav a {
+    position: relative;
+    z-index: 1;
+    padding: 0.25rem 0;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.site-footer {
+    border-top: 1px solid var(--color-border);
+    padding: 1rem 0;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================
+   4. Homepage layout
+   ========================================================== */
+
+.wishlist {
+    margin: 1rem 0 2.5rem;
+}
+
+.wishlist > h2 {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.wishlist > p {
+    margin: 0 auto 1.5rem auto;
+}
+
+.wish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 24rem);
+    gap: 1rem;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: 0;
+}
+
+/* ==========================================================
+   5. Shared cards and card links
+   ========================================================== */
+
+.wish, .wish-detail, .wish-sub {
+    background-color: var(--color-surface);
+    border: none;
+    border-radius: var(--superelipse-radius-md);
+    corner-shape: var(--corner-shape);
+    transition: background-color 0.2s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.2s ease;
+}
+
+.wish,
+.wish-sub {
+    opacity: 0;
+}
+
+.wish.is-visible,
+.wish-sub.is-visible {
+    opacity: 1;
+    animation: reveal 400ms ease-out backwards;
+    animation-delay: calc(var(--stagger-index, 0) * 90ms);
+}
+
+.carousel-item {
+    display: contents;
+}
+
+/* Scale is independent of the entrance animation and hover's translateY. */
+.is-horizontal > .carousel-item > :is(.wish, .wish-sub) {
+    translate: var(--navigation-overflow, 0px) 0;
+    scale: var(--scroll-scale, 1);
+    transform-origin: center;
+    position: relative;
+}
+
+.is-horizontal > .carousel-item > :is(.wish, .wish-sub).is-visible,
+.is-horizontal.has-scrolled > .carousel-item > :is(.wish, .wish-sub) {
+    opacity: var(--card-opacity, 1);
+}
+
+.is-horizontal.has-scrolled > .carousel-item > :is(.wish, .wish-sub) {
+    animation: none;
+}
+
+.wish {
+    display: flex;
+    justify-self: center;
+    width: min(100%, 24rem);
+}
+
+#hovedonsker article {
+    border: 2px solid var(--color-accent);
+}
+
+.wish.can-hover:hover:not(.fortom-link) {
+    border-color: var(--color-border);
+    box-shadow: 0 8px 18px rgba(38, 51, 44, 0.1);
+    transform: translateY(-2px);
+}
+
+.wish.can-hover:hover, .wish:has(:focus-visible) {
+    background-color: var(--color-accent-soft);
+}
+
+.wish-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    margin: 2rem;
+    border-radius: inherit;
+    color: var(--color-text);
+    text-decoration: none;
+    min-height: 12rem;
+}
+
+.wish > .wish-link {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+
+.wish-more {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: auto;
+    transition: letter-spacing 180ms ease;
+}
+
+.wish-more-products {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+}
+
+.wish.can-hover:hover .wish-more,
+.wish:has(:focus-visible) .wish-more {
+    letter-spacing: 0.02em;
+}
+
+
+/* ==========================================================
+   6. Product details: layout, headings and prices
+   ========================================================== */
+
+.site-header > p:not(.eyebrow), .site-footer, .wish p, .wish-detail > p {
+    color: var(--color-text-muted);
+}
+
+.wish-misc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.wish-misc dl {
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+
+.wish-link span {
+    margin-top: 0.3rem;
+}
+
+
+.wish-items {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+.wish-info {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-top: 2.5rem;
+}
+
+.wish-info h2 {
+    font-size: 1.2rem;
+    margin: 1rem;
+}
+
+.wish-info p {
+    margin: 1rem;
+}
+
+.wish-heading {
+    display: flex;
+    flex-direction: row;
+}
+
+.wish-heading h3 {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    margin-left: auto;
+    margin-top: 0.25rem;
+    color: var(--color-accent);
+}
+
+.wish-detail {
+    margin-bottom: 2rem;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.wish-detail, .wish-master {
+    position: relative;
+    max-width: 100%;
+}
+
+.wish-detail > .wish {
+    width: min(100%, 34rem);
+    margin-inline: auto;
+}
+
+.wish-detail h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+}
+
+.price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.price-amount{
+    color: var(--color-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+#benefits-heading {
+    margin-top: 3rem;
+}
+
+.go60-conf {
+    background-color: var(--color-surface);
+    padding: 1rem;
+    border-radius: var(--border-radius-small);
+    margin: 2rem 0;
+}
+
+.go60-conf p {
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+/* ==========================================================
+   7. Product cards
+   ========================================================== */
+
+.wish-sub {
+    background-color: var(--color-surface);
+    flex: 1 1 min(100%, 22rem);
+    width: 100%;
+    max-width: 24rem;
+    margin: 0;
+    min-width: 0;
+}
+
+.wish-sub.can-hover:not(:has(.fortom-link)):hover,
+.wish-sub:not(:has(.fortom-link)):has(:focus-visible) {
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 18px rgba(38, 51, 44, 0.1);
+    transform: translateY(-2px);
+}
+
+#walnut-sub.can-hover:hover,
+#walnut-sub:has(:focus-visible) {
+    background-color: var(--color-accent-walnut-soft);
+    border-color: var(--color-accent-walnut);
+    box-shadow: 0 8px 18px rgba(38, 51, 44, 0.1);
+    transform: translateY(-2px);
+}
+
+#walnut-sub.can-hover:hover .wish-link h3, #walnut-sub.can-hover:hover .wish-link p {
+    color: var(--color-accent-walnut);
+}
+
+.sub-wishes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: column;
+    gap: 1rem;
+}
+
+.sub-wishes > section {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-wishes > section :is(.moergo-link, .video-card) {
+    flex: 1;
+}
+
+.sub-wish {
+    max-width: 626px;
+}
+
+.wish-link h3 {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.description  {
+    margin: 1.3rem 0 1rem 0rem;
+}
+
+.wish-link > .instructions-h {
+    margin: 2rem 0 0.5rem 0;
+}
+
+.instructions-p {
+    margin: 0.5rem 0;
+}
+
+.wish-sub > .wish-link {
+    width: 100%;
+    margin: 0;
+    padding: 1.5rem;
+}
+
+#hev-senk-skrivebord:hover {
+    color: var(var(--color-accent-walnut));
+}
+
+/* These preview cards clip their contents; keep focus outlines inside. */
+.moergo-link > a:focus-visible,
+.video-card:focus-visible {
+    outline-offset: -4px;
+}
+
+/* ==========================================================
+   8. Product images
+   ========================================================== */
+
+#walnut-image {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: var(--superelipse-radius-md);
+    border-top-right-radius: var(--superelipse-radius-md);
+    object-fit: contain;
+}
+
+.wish-image {
+    display: block;
+    position: relative;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius-xxsmall);
+    background-color: transparent;
+    max-height: 15rem;
+    min-height: 7rem;
+    object-fit: contain;
+}
+
+.wish-image {
+    transition: transform 1s ease-out;
+}
+
+@media(min-width: 46rem) {
+    .wish:has(.wish-image:not(.skittfiske-link, .open-icon, .wish-image-instruction)):hover .wish-image:not(.skittfiske-link, .open-icon, .wish-image-instruction) {
+        transform: scale(1.08);
+    }
+}
+
+.skittfiske-link {
+    border-radius: var(--border-radius-small);
+    border: 3px solid var(--color-border);
+    padding: 1rem;
+    background-color: #f3eadf;
+}
+
+.open-icon {
+    display: flex;
+    width: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#image-ldt115 {
+    object-fit: contain;
+    margin: 0;
+}
+
+#image-line {
+    border-radius: 0;
+}
+
+.wish-image-frame {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--superelipse-radius-md);
+}
+
+
+#iiglo-image {
+    object-fit: contain;
+    background-color: transparent;
+}
+
+.monitor-arm {
+    object-fit: contain;
+    object-position: center;
+}
+
+.wish-image-instruction {
+    display: flex;
+    position: relative;
+    object-fit: cover;
+    border-radius: var(--border-radius-xsmall);
+    border: 4px solid var(--color-border);
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ==========================================================
+   9. Shop preview links
+   ========================================================== */
+
+.moergo-link {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--superelipse-radius-lg);
+    corner-shape: var(--corner-shape);
+    overflow: hidden;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.3s ease;
+}
+
+.moergo-link:hover,
+.moergo-link:focus-within {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+    transform: translateY(-2px);
+}
+
+.moergo-link a {
+    display: block;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.product-image-go60 {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 22rem;
+    object-fit: cover;
+}
+
+.link-caption {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+.link-caption span {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==========================================================
+   10. YouTube preview
+   ========================================================== */
+
+.video-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--superelipse-radius-lg);
+    corner-shape: var(--corner-shape);
+    overflow: hidden;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.3s ease;
+}
+
+.video-card:hover,
+.video-card:focus-visible {
+    border-color: var(--color-accent-red);
+    background-color: var(--color-youtube-red-soft);
+    transform: translateY(-2px);
+}
+
+.video-thumbnail {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-color: var(--color-surface-muted);
+}
+
+.video-thumbnail img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--color-youtube-red);
+    color: var(--color-on-accent);
+}
+
+.video-play::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 0.6rem solid transparent;
+    border-bottom: 0.6rem solid transparent;
+    border-left: 1rem solid var(--color-on-accent);
+    
+    transform: translateX(0.15rem);
+}
+
+.video-caption {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+.video-caption span {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* Fly-tying page: store summary and product rows. */
+.fly-tying-page .shop-overview {
+    margin-block: 2rem;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-small);
+}
+
+.fly-tying-page .shop-overview h2 {
+    font-size: 1.2rem;
+}
+
+.fly-tying-page .shop-label {
+    display: block;
+    margin-block: 0 0.4rem;
+    color: var(--color-text-muted);
+    font-size: 0.65rem;
+    line-height: 1.3;
+}
+
+.fly-tying-page .price-amount {
+    margin-top: auto;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.fly-tying-page .fly-tying-row .wish-link {
+    align-items: center;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.fly-tying-page .fly-tying-row h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.25;
+}
+
+.fly-tying-page .fly-tying-row .description {
+    margin: 0.4rem 0;
+    font-size: 0.8rem;
+    line-height: 1.35;
+}
+
+@media (max-width: 46rem) {
+    .fly-tying-page .fly-tying-row {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        width: calc(100% + 2 * var(--page-padding));
+        margin-inline: calc(-1 * var(--page-padding));
+        overflow-x: auto;
+        padding: 0.5rem var(--page-padding) 1rem;
+        gap: 1rem;
+        scroll-padding-inline: var(--page-padding);
+        overscroll-behavior-x: contain;
+    }
+
+    .fly-tying-page .fly-tying-row > .wish-sub {
+        flex: 0 0 13rem;
+        width: 13rem;
+        max-width: none;
+        scroll-snap-align: start;
+    }
+
+    .fly-tying-page .fly-tying-row .wish-image {
+        width: 100%;
+        max-width: 100%;
+        height: 10rem;
+        max-height: none;
+        min-height: 0;
+        margin: 0 0 0.6rem;
+        object-fit: contain;
+    }
+}
+
+/* ==========================================================
+   11. Animations and reduced motion
+   ========================================================== */
+
+@media (max-width: 46rem) {
+
+    body {
+        --page-padding: 1.2rem;
+        padding: var(--page-padding);
+    }
+
+    .wish-grid {
+        display: flex;
+        width: 100vw;
+        max-width: none;
+        margin-left: calc(50% - 50vw);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        padding: 0 var(--page-padding) 1rem;
+        gap: 1rem;
+        scroll-padding-left: var(--page-padding);
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .wish-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .wish-grid .wish {
+        flex: 0 0 13rem;
+        width: 13rem;
+        max-width: none;
+        scroll-snap-align: start;
+    }
+
+    .wish-grid .wish > .wish-link {
+        flex: 1;
+        width: 100%;
+    }
+
+    .wish-grid .wish h3,
+    .wish-grid .wish p {
+        white-space: nowrap;
+    }
+
+    .wish p {
+        margin: 0.3rem 0 0.5rem;
+    }
+
+    .wish-detail {
+        padding: 1rem;
+    }
+
+    .wish-heading {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.25rem 0.75rem;
+    }
+
+    .wish-heading h2 {
+        min-width: 0;
+        font-size: clamp(1.25rem, 6vw, 1.6rem);
+    }
+
+    .wish-heading h3 {
+        margin: 0.15rem 0 0 auto;
+        font-size: 1rem;
+    }
+
+    .wish-misc {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0rem;
+        padding-block: 1rem;
+    }
+
+    .wish-misc:has(> .wish-sub:only-of-type) > .wish-sub {
+        grid-column: 1;
+    }
+
+    .wish-misc dl {
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        align-items: baseline;
+        column-gap: 0.75rem;
+        row-gap: 0.25rem;
+        padding: 0;
+    }
+
+    .wish-misc .price {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .wish-misc .price-amount {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .wish-sub, .total {
+        max-width: 30rem;
+    }
+
+    .total {
+        width: 100%;
+        margin-inline: auto;
+        align-items: stretch;
+        text-align: left;
+    }
+
+    .wish-sub > .wish-link {
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .wish-link {
+        align-items: center;
+        padding: 1rem 1rem 0.4rem 1rem;
+    }
+
+    .description {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .wish-image {
+        max-width: fit-content;
+        max-height: clamp(4rem, 10vh, 12rem);
+    }
+
+    .wish-info {
+        margin-top: 1.5rem;
+    }
+
+    .wish-info h2,
+    .wish-info p {
+        margin-inline: 0;
+    }
+}
+
+@media (max-width: 71rem) {
+    .sub-wishes {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(2, auto);
+    }
+    .sub-wishes > section :is(.moergo-link, .video-card) {
+        flex: none;
+    }
+}
+
+
+/* A centered, native-scroll carousel on phones. Desktop rows keep their layout. */
+@media (max-width: 46rem) {
+    .wish-grid.is-horizontal,
+    .fly-tying-page .fly-tying-row.is-horizontal {
+        position: relative;
+        gap: var(--carousel-gap, 0.75rem);
+        padding-inline: var(--carousel-padding, var(--page-padding));
+        padding-block: 1rem;
+        scroll-padding-inline: 0;
+        scroll-snap-type: var(--carousel-snap, x proximity);
+    }
+
+    .is-horizontal > .carousel-item {
+        display: block;
+        position: relative;
+        flex: 0 0 var(--carousel-card-width, 13rem);
+        width: var(--carousel-card-width, 13rem);
+        min-width: 0;
+        z-index: var(--card-order, 0);
+        scroll-snap-align: center;
+    }
+
+    .is-horizontal > .carousel-item > :is(.wish, .wish-sub) {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        margin: 0;
+        scroll-snap-align: none;
+        transition: scale var(--carousel-smoothing, 120ms)
+                var(--carousel-easing, cubic-bezier(0.16, 1, 0.3, 1)),
+            opacity var(--carousel-smoothing, 120ms)
+                var(--carousel-easing, cubic-bezier(0.16, 1, 0.3, 1)),
+            background-color 200ms ease, box-shadow 150ms ease;
+        box-shadow: 0 6px 18px rgb(0 0 0 / 18%),
+            inset 0 0 0 1px rgb(243 234 223 / 5%);
+    }
+
+    .is-horizontal > .carousel-item:not(:last-child) {
+        margin-inline-end: 0;
+    }
+}
+
+.carousel-controls[hidden] {
+    display: none;
+}
+
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin: 0.25rem 0 1rem;
+}
+
+.carousel-controls button {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-surface);
+    color: var(--color-accent);
+    font: inherit;
+    cursor: pointer;
+}
+
+.carousel-controls button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.carousel-controls .carousel-dot {
+    width: 1.5rem;
+    border: none;
+    background: transparent;
+}
+
+.carousel-dot::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 1rem;
+    background: var(--color-accent);
+    opacity: 0.35;
+}
+
+.carousel-dot[aria-current="true"]::before {
+    width: 0.9rem;
+    opacity: 1;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: var(--card-opacity, 1);
+        transform: translateY(0);
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    .is-horizontal > .carousel-item:not(:last-child) {
+        margin-inline-end: 0;
+    }
+
+    .is-horizontal > .carousel-item > :is(.wish, .wish-sub) {
+        scale: 1;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
