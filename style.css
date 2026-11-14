@@ -7,8 +7,8 @@
     
     color-scheme: dark;
 
-    --color-background: #1d1310;
-    --color-surface: #31211d;
+    --color-background: #120d0b;
+    --color-surface: #211713;
     --color-surface-muted: #45302a;
 
     --color-text: #f3eadf;
@@ -82,7 +82,12 @@ h1, h2, h3 {
 
 h1 {
     font-size: clamp(2rem, 5vw, 3rem);
-    margin: 3rem 0 1rem;
+    margin: 3rem 0 2rem;
+
+}
+
+#h1-fortom {
+    margin: 3rem 0 0.5rem;
 }
 
 h1 span.sub-header {
@@ -98,6 +103,16 @@ h2 {
 h3 {
     font-size: 1.2rem;
     margin: 0;
+}
+
+.text-reveal {
+    animation: textReveal 1s cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: backwards;
+    animation-delay: var(--text-reveal-delay, 0ms);
+}
+
+h1.text-reveal {
+    animation-name: textRevealh1;
 }
 
 a {
@@ -165,6 +180,13 @@ dialog span {
     gap: 0.5rem;
 }
 
+#visitor-dialog label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 #velg {
     padding: 10px;
     margin: 1.5rem 0;
@@ -174,10 +196,10 @@ dialog span {
     border-radius: 999px;
     border: 3px solid var(--color-accent-hover);
     background-color: var(--color-background);
-
 }
 
-#submit {
+#submit,
+.dialog-continue {
     width: clamp(12rem, 24vw, 16rem);
     font-weight: 600;
     font-size: 1rem;
@@ -198,7 +220,9 @@ dialog span {
     }
 }
 
-#visitor-dialog::backdrop {
+#visitor-dialog::backdrop,
+#foreldre-visitor-dialog::backdrop,
+#andre-visitor-dialog::backdrop {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     background-color: rgb(0 0 0 / 15%);
@@ -214,6 +238,7 @@ dialog span {
    ========================================================== */
 
 .site-header a {
+    position: absolute;
     padding: 0.3rem 0.5rem;
     font-weight: 700;
     font-family: "Nunito Sans", sans-serif;
@@ -261,6 +286,26 @@ nav a {
    4. Homepage layout
    ========================================================== */
 
+#change-person {
+    position: absolute;
+    top: 1rem;
+    background-color: var(--color-background);
+    color: var(--color-accent);
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    border-radius: var(--border-radius-large);
+    border: 2px solid var(--color-accent);
+    cursor: pointer;
+
+    transition: background-color 50ms ease-out, color 50ms ease-out;
+}
+
+#change-person:hover {
+    background-color: var(--color-accent);
+    color: var(--color-background);
+}
+
 .wishlist {
     margin: 1rem 0 2.5rem;
 }
@@ -268,6 +313,12 @@ nav a {
 .wishlist > h2 {
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+}
+
+.wishlist > h2 > span {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
 }
 
 .wishlist > p {
@@ -297,6 +348,35 @@ nav a {
 
 .wish,
 .wish-sub {
+    position: relative;
+}
+
+/* Extend the real product link over the card, without nesting buttons in it. */
+:is(.wish, .wish-sub) a.bottom-section-card-title[href]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: var(--superelipse-radius-md);
+    corner-shape: var(--corner-shape);
+}
+
+:is(.wish, .wish-sub) .reservation-controls {
+    position: relative;
+    z-index: 2;
+}
+
+:is(.wish, .wish-sub) a.bottom-section-card-title:focus-visible {
+    outline: none;
+}
+
+:is(.wish, .wish-sub) a.bottom-section-card-title[href]:focus-visible::after {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+.wish.reveal-pending:not(.is-visible),
+.wish-sub.reveal-pending:not(.is-visible) {
     opacity: 0;
 }
 
@@ -331,7 +411,7 @@ nav a {
 .wish {
     display: flex;
     justify-self: center;
-    width: min(100%, 24rem);
+    width: min(100%, 25rem);
 }
 
 #hovedonsker article {
@@ -405,8 +485,8 @@ nav a {
 }
 
 .wish-misc dl {
-    margin-bottom: 0;
-    margin-top: auto;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 
@@ -501,6 +581,12 @@ nav a {
     margin: 1.5rem 0 0.5rem 0;
 }
 
+go60-color-image {
+    display: flex;
+    margin-right: auto;
+    margin-left: 0;
+}
+
 /* ==========================================================
    7. Product cards
    ========================================================== */
@@ -568,7 +654,12 @@ nav a {
 }
 
 .instructions-p {
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.instructions-p-2 {
+    margin: 0 0 0.5rem 0;
+    text-decoration: underline;
 }
 
 .wish-sub > .wish-link {
@@ -578,7 +669,7 @@ nav a {
 }
 
 #hev-senk-skrivebord:hover {
-    color: var(var(--color-accent-walnut));
+    color: var(--color-accent-walnut);
 }
 
 /* These preview cards clip their contents; keep focus outlines inside. */
@@ -592,20 +683,16 @@ nav a {
    ========================================================== */
 
 #walnut-image {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: var(--superelipse-radius-md);
-    border-top-right-radius: var(--superelipse-radius-md);
     object-fit: contain;
 }
 
 .wish-image {
     display: block;
     position: relative;
-    width: 100%;
     object-fit: cover;
-    margin-bottom: 1rem;
-    border-radius: var(--border-radius-xxsmall);
+    margin-bottom: minmax(0.5rem, auto);
+    margin-top: auto;
+    margin-inline: auto;
     background-color: transparent;
     max-height: 15rem;
     min-height: 7rem;
@@ -636,20 +723,10 @@ nav a {
     margin-right: auto;
 }
 
-#image-ldt115 {
-    object-fit: contain;
-    margin: 0;
-}
-
-#image-line {
-    border-radius: 0;
-}
-
 .wish-image-frame {
     display: block;
     width: 100%;
     overflow: hidden;
-    border-radius: var(--superelipse-radius-md);
 }
 
 
@@ -658,16 +735,10 @@ nav a {
     background-color: transparent;
 }
 
-.monitor-arm {
-    object-fit: contain;
-    object-position: center;
-}
-
 .wish-image-instruction {
     display: flex;
     position: relative;
     object-fit: cover;
-    border-radius: var(--border-radius-xsmall);
     border: 4px solid var(--color-border);
     background-color: transparent;
     width: 100%;
@@ -818,7 +889,7 @@ nav a {
     display: block;
     margin-block: 0 0.4rem;
     color: var(--color-text-muted);
-    font-size: 0.65rem;
+    font-size: 0.875rem;
     line-height: 1.3;
 }
 
@@ -916,12 +987,23 @@ nav a {
         scroll-snap-align: start;
     }
 
+    /* Fallback centering before the carousel script wraps the card. */
+    .wish-grid > .wish:only-child {
+        margin-inline: auto;
+    }
+
     .wish-grid .wish > .wish-link {
         flex: 1;
         width: 100%;
     }
 
-    .wish-grid .wish h3,
+    .wish-grid .wish h3 {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        max-width: 100%;
+        text-align: center;
+    }
+
     .wish-grid .wish p {
         white-space: nowrap;
     }
@@ -961,15 +1043,6 @@ nav a {
         grid-column: 1;
     }
 
-    .wish-misc dl {
-        display: grid;
-        grid-template-columns: max-content minmax(0, 1fr);
-        align-items: baseline;
-        column-gap: 0.75rem;
-        row-gap: 0.25rem;
-        padding: 0;
-    }
-
     .wish-misc .price {
         margin: 0;
         font-size: 1.1rem;
@@ -977,7 +1050,7 @@ nav a {
 
     .wish-misc .price-amount {
         margin: 0;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
 
     .wish-sub, .total {
@@ -993,12 +1066,12 @@ nav a {
 
     .wish-sub > .wish-link {
         align-items: center;
-        padding: 1rem;
+        padding: 1rem 0.5rem;
     }
 
     .wish-link {
         align-items: center;
-        padding: 1rem 1rem 0.4rem 1rem;
+        padding: 1rem 0.8rem 0.4rem;
     }
 
     .description {
@@ -1007,8 +1080,13 @@ nav a {
     }
 
     .wish-image {
-        max-width: fit-content;
-        max-height: clamp(4rem, 10vh, 12rem);
+        max-width: 100%;
+        max-height: clamp(4rem, 20vh, 10rem);
+    }
+
+    .wish-grid .wish:not(:has(.reservation-controls)) .wish-image {
+        height: 10rem;
+        max-height: none;
     }
 
     .wish-info {
@@ -1047,8 +1125,8 @@ nav a {
     .is-horizontal > .carousel-item {
         display: block;
         position: relative;
-        flex: 0 0 var(--carousel-card-width, 13rem);
-        width: var(--carousel-card-width, 13rem);
+        flex: 0 0 min(var(--carousel-card-width, 16rem), calc(100vw - 2 * var(--page-padding)));
+        width: min(var(--carousel-card-width, 16rem), calc(100vw - 2 * var(--page-padding)));
         min-width: 0;
         z-index: var(--card-order, 0);
         scroll-snap-align: center;
@@ -1089,9 +1167,9 @@ nav a {
 .carousel-controls button {
     display: grid;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
-    padding: 0;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.7rem;
     border: 1px solid var(--color-border);
     border-radius: 50%;
     background: var(--color-surface);
@@ -1136,6 +1214,28 @@ nav a {
     }
 }
 
+@keyframes textReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textRevealh1 {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
     .is-horizontal > .carousel-item:not(:last-child) {
@@ -1154,5 +1254,318 @@ nav a {
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.wish:has(> .reservation-controls),
+.wish-sub:has(> .reservation-controls),
+.wish-sub:has(> .reservation-options) {
+    display: flex;
+    flex-direction: column;
+}
+
+.wish:has(> .reservation-controls) > .wish-link,
+.wish-sub:has(> .reservation-controls) > .wish-link,
+.wish-sub:has(> .reservation-options) > .wish-link {
+    flex: 1;
+    height: auto;
+}
+
+.reservation-options {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* Shared card footer: product details and a separate reservation button. */
+.wish-product-link {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: auto;
+    width: auto;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+}
+
+.bottom-section-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.bottom-section-card-title {
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+.bottom-section-card-title h3 {
+    margin-top: 0;
+}
+
+.reservation-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem 1rem;
+    text-align: center;
+    min-width: 0;
+}
+
+.bottom-section-card > .reservation-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.4rem;
+    padding: 0;
+}
+
+.bottom-section-card .reservation-status {
+    grid-column: 1;
+    grid-row: 1;
+    position: static;
+    min-width: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.bottom-section-card .reservation-button {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    flex: 0 0 auto;
+    max-width: 100%;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.8rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+/* Longer messages get their own line so the button stays centered. */
+.bottom-section-card > .reservation-controls.has-long-status {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.bottom-section-card .has-long-status .reservation-button {
+    grid-column: 1;
+    white-space: normal;
+}
+
+.bottom-section-card .has-long-status .reservation-status {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.reservation-controls p {
+    margin: 0 0 0.5rem;
+    font-size: 0.85rem;
+}
+
+.reservation-controls .reservation-name {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.reservation-controls button {
+    font-size: 1rem;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+    cursor: pointer;
+}
+
+.reservation-controls button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.reservation-controls .reservation-button.is-reserved-by-you {
+    background-color: var(--color-on-accent);
+    color: var(--color-accent);
+}
+
+/* Reserve the muted treatment for images, keeping names and prices readable. */
+.is-reserved-by-others .wish-image {
+    opacity: 0.5;
+    filter: grayscale(0.8);
+}
+
+.reservation-link-disabled {
+    cursor: default;
+}
+
+/* Clear instructions and larger controls for family visitors. */
+button:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--color-accent-hover);
+    outline-offset: 3px;
+}
+
+#visitor-dialog,
+#foreldre-visitor-dialog,
+#andre-visitor-dialog {
+    width: min(32rem, calc(100% - 2rem));
+    max-width: calc(100% - 2rem);
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+#visitor-dialog .dialog-intro {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#visitor-dialog label,
+#velg {
+    width: 100%;
+    max-width: 100%;
+}
+
+#submit,
+.dialog-continue {
+    width: min(100%, 16rem);
+}
+
+.shop-action {
+    display: block;
+    margin-top: 0.4rem;
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.new-tab-note.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.new-tab-summary {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.price-note,
+.reservation-help {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+.reservation-controls .reservation-help {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin: 0.4rem 0 0;
+    max-width: 32rem;
+    white-space: normal;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.reservation-controls .reservation-help[hidden] {
+    display: none;
+}
+
+.purchase-checklist {
+    margin-block: 1.5rem;
+}
+
+.purchase-checklist li {
+    margin-block: 0.4rem;
+}
+
+.carousel-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.carousel-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.carousel-navigation[hidden] {
+    display: none;
+}
+
+.carousel-count {
+    min-width: 3rem;
+    text-align: center;
+}
+
+.carousel-controls button {
+    width: auto;
+    border-radius: 999px;
+}
+
+@media (max-width: 46rem) {
+    .wish-grid.show-all,
+    .fly-tying-page .fly-tying-row.show-all {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        margin-inline: 0;
+        padding: 0;
+        gap: 1rem;
+        overflow: visible;
+    }
+
+    .show-all > .carousel-item {
+        display: block;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .wish-grid.show-all .wish,
+    .fly-tying-row.show-all .wish-sub {
+        width: 100%;
+        max-width: 28rem;
+        margin-inline: auto;
+        scale: 1;
+        translate: none;
+        opacity: 1;
+    }
+    
+    .bottom-section-card .reservation-status { 
+        text-align: right;
+        font-size: 0.75rem;
+    }
+    .bottom-section-card .reservation-help {
+        text-align: right;
+        font-size: 0.75rem;
     }
 }

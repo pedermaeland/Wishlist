@@ -19,8 +19,12 @@
         </header>
 
         <main>
+            <noscript><p class="reservation-help">Reservasjoner krever JavaScript. Spør meg før du kjøper, så vi unngår dobbeltkjøp.</p></noscript>
             <article class="wish-master">
-                <h1>Fortom</h1>
+                <h1 id="h1-fortom">Fortom</h1>
+            <p class="new-tab-summary">Nettbutikkene åpnes i en ny fane. Ønskelisten blir liggende åpen.</p>
+                <p class="reservation-help">Reserver størrelsen du vil gi før du handler, og behold reservasjonen etter kjøpet. Spør meg hvis du trenger hjelp med reservasjonen.</p>
+                <p class="price-note">Sjekk oppdatert pris og frakt i nettbutikken før du betaler.</p>
 
                 <section class="wish-misc">
                     <article class="wish-sub">
@@ -29,15 +33,34 @@
                             <p>En fortom gjør overgangen fra det tykke fluesnøret til flua jevnere og mindre synlig i vannet.</p>
                         
                             <h3 class="instructions-h">Størrelser</h3>
-                            <p class="instructions-p">En av hver av de som er markert i rødt</p>
-                            <img class="wish-image-instruction" src="/assets/fortom-thickness.png">
+                            <p class="instructions-p">Én spole i hver størrelse: 0,128 mm, 0,148 mm og 0,185 mm. Hver størrelse reserveres separat nedenfor.</p>
+                            <img class="wish-image-instruction" src="/assets/fortom-thickness.png" alt="Butikkens størrelsesvalg, med 0,128 mm, 0,148 mm og 0,185 mm markert i rødt">
 
-                            <h3 class="instructions-h">Link</h3>
+                            <h3 class="instructions-h">Butikk</h3>
                             <a class="skittfiske-link" href="https://www.skittfiske.no/fiske/fiskesnorer/fortommer/fortomsspoler/guideline-guideline-power-strike-tippet-FS621066" target="_blank" rel="noopener noreferrer">
                                 <img class="wish-image fortom-image" src="../assets/line.png" alt="Fortom til fluefiske">
                                 <img class="skittfiske-img" src="../assets/skittfiskeno-logo-site.svg" alt="Skittfiske logo">
-                                <img class="open-icon" src="../assets/open.svg" alt="Open">
+                                <img class="open-icon" src="../assets/open.svg" alt="">
+                                <span class="shop-action">Se hos Skittfiske ↗</span>
+                                <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
                             </a>
+                        </div>
+                        <div class="reservation-options">
+                            <div class="reservation-controls" data-wish-id="tippet-0128" data-wish-name="Fortom 0,128 mm">
+                                <p class="reservation-name">Fortom 0,128 mm</p>
+                                <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                            </div>
+                            <div class="reservation-controls" data-wish-id="tippet-0148" data-wish-name="Fortom 0,148 mm">
+                                <p class="reservation-name">Fortom 0,148 mm</p>
+                                <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                            </div>
+                            <div class="reservation-controls" data-wish-id="tippet-0185" data-wish-name="Fortom 0,185 mm">
+                                <p class="reservation-name">Fortom 0,185 mm</p>
+                                <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                            </div>
                         </div>
                     </article>
                 </section>
@@ -56,20 +79,9 @@
                     </p>
                 </section>
 
-                <section class="wish-info" aria-labelledby="use-heading">
-                    <h2 id="use-heading">Hvorfor jeg ønsker meg den</h2>
-                    <p>
-                        En god fortom gjør det enklere å kaste og gir bedre kontroll på
-                        flua. Riktig tykkelse kan også tilpasses flua, fiskeslaget og
-                        forholdene jeg fisker under.
-                    </p>
-                    <p>
-                        Dette er en liten, men nødvendig del av utstyret som er lett å
-                        ta med seg og nyttig å ha som reserve.
-                    </p>
-                </section>
             </article>
         </main>
         <script src="../script.js"></script>
+        <script src="../reservations.js"></script>
     </body>
 </html>

@@ -19,25 +19,39 @@
         </header>
 
         <main>
+            <noscript><p class="reservation-help">Reservasjoner krever JavaScript. Spør meg før du kjøper, så vi unngår dobbeltkjøp.</p></noscript>
             <h1>MoErgo Go60</h1>
+            <p class="new-tab-summary">Nettbutikkene åpnes i en ny fane. Ønskelisten blir liggende åpen.</p>
 
             <dl>
-                <dt>Pris</dt>
+                <dt>Omtrentlig pris</dt>
                     <div class="price-dd">
                         <dd>Kun tastatur - $300 (2&nbsp;850&nbsp;kr)</dd>
                         <dd>Med håndflatestøtte - $420 (3&nbsp;975&nbsp;kr) </dd>
                         <dd>Jeg ønsker meg varianten med håndflatestøtte mest (går fint uten &#128579;)</dd>
-                        <dd>Man kan kjøpe håndflatestøtten som en seperat vare i nettbutikken</dd>
+                        <dd>Man kan kjøpe håndflatestøtten som en separat vare i nettbutikken</dd>
                     </div>
             </dl>
+            <div class="reservation-controls" data-wish-id="go60" data-wish-name="MoErgo Go60">
+                <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                <button class="reservation-button" type="button" disabled>Vent litt…</button>
+            </div>
+            <section class="purchase-checklist" aria-labelledby="purchase-heading">
+                <h2 id="purchase-heading">Velg dette i butikken</h2>
+                <ul>
+                    <li>Farge: <strong>White</strong></li>
+                    <li>Brytere: <strong>Golden Kiwi 42gf Silent Tactile</strong></li>
+                    <li>Helst med håndflatestøtte, men tastaturet alene er også fint.</li>
+                </ul>
+            </section>
             <section class="sub-wishes">
                 <section class="sub-wish">
                     <h2>Butikk</h2>
-                    <a class="moergo-link" href="https://www.moergo.com/collections/go60-keyboards/products/go60-ergonomic-keyboard?variant=52702010835217" target="_blank" rel="noopener noreferrer">
-                        <img class="product-image-go60" src="https://www.moergo.com/cdn/shop/files/go60_contents_1200x1600_6aaa887d-fe1b-4d81-8e9c-8a9930a7daca_600x.jpg?v=1762767603" alt="MoErgo Go60"></img>
+                    <a class="moergo-link" data-wish-shop="go60" href="https://www.moergo.com/collections/go60-keyboards/products/go60-ergonomic-keyboard?variant=52702010835217" target="_blank" rel="noopener noreferrer">
+                        <img class="product-image-go60" src="https://www.moergo.com/cdn/shop/files/go60_contents_1200x1600_6aaa887d-fe1b-4d81-8e9c-8a9930a7daca_600x.jpg?v=1762767603" alt="MoErgo Go60">
                         <div class="link-caption">
                             <strong>Se produktet hos MoErgo</strong>
-                            <span>Åpne ↗</span>
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
                         </div>
                     </a>
                 </section>
@@ -50,18 +64,18 @@
                         </div>
                         <div class="video-caption">
                             <strong>Se video på YouTube</strong>
-                            <span>Åpne ↗</span>
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
                         </div>
                     </a>
                 </section>
             </section>
 
             <div class="go60-conf">
-                <h2>Konfigurasjoner</h2>
+                <h2>Slik ser valgene ut i butikken</h2>
                 <p>Velg "White"</p>
-                <img class="wish-image go60-color-image" src="../assets/go60-color.png" alt="Velg farge (white)">
+                <img class="go60-color-image" src="../assets/go60-color.png" alt="Velg farge (white)">
                 <p>Velg "Golden Kiwi 42gf Silent Tactile"</p>
-                <img class="wish-image go60-switch-image" src="../assets/go60-switch.png" alt="Velg bryter (Golden Kiwi 42gf Silent Tactile)">
+                <img class="go60-switch-image" src="../assets/go60-switch.png" alt="Velg bryter (Golden Kiwi 42gf Silent Tactile)">
             </div>
 
             <section aria-labelledby="benefits-heading">
@@ -72,5 +86,6 @@
             </section>
         </main>
         <script src="../script.js"></script>
+        <script src="../reservations.js"></script>
     </body>
 </html>

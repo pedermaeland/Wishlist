@@ -1,16 +1,16 @@
 // CAROUSEL SETTINGS — edit here, save, then refresh the browser.
 const carouselSettings = {
     sideScale: 0.8,        // 0.88 = 88% size at the outer edges. 1 = no shrinking.
-    sideOpacity: 0.65,      // 0.65 = 65% opacity at the outer edges. 1 = no fading.
+    sideOpacity: 1,         // Keep available side cards readable; 1 = no fading.
     effectRange: 2,         // Card spacings from center to full effect. Higher = gentler.
     smoothingMs: 120,       // Size/fade smoothing in milliseconds. 0 = follows instantly.
     navigationMs: 750,     // Arrow/dot travel time. Higher = slower, on every device.
     navigationEasing: "cubic-bezier(0.22, 0.8, 0.3, 1.03)", // Small overshoot, then settle.
     easing: "cubic-bezier(0.22, 0.8, 0.3, 1.02)", // Softer takeoff and a long, gentle settle.
-    cardWidthRem: 13,      // Mobile card width. 13rem is normally 208px.
+    cardWidthRem: 15,      // Mobile card width. 15rem is normally 240px; CSS caps it on small screens.
     gapRem: 0.5,          // Space between cards. Keep >= 0 to avoid overlap.
     snap: "proximity",     // "proximity" = gentle, "mandatory" = always center, "none" = free.
-    showControls: true,    // true = show arrows/dots. false = swipe only.
+    showControls: true,    // true = show navigation and list view. false = swipe only.
 };
 
 const wishGrids = document.querySelectorAll(".wish-grid, .wish-misc");
@@ -36,6 +36,7 @@ const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
+            entry.target.classList.remove("reveal-pending");
             revealObserver.unobserve(entry.target);
         }
     });
@@ -43,9 +44,10 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".wish, .wish-sub").forEach((card) => {
     revealObserver.observe(card);
+    card.classList.add("reveal-pending");
 });
 
-// Native scrolling drives a flat stack of smaller, faded side cards.
+// Native scrolling drives a flat stack of smaller side cards.
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // CSS curves describe x (time) and y (progress). Find y for the current time.
@@ -68,15 +70,14 @@ function easeCarousel(time, curve = carouselSettings.easing) {
     return point((low + high) / 2, y1, y2);
 }
 
-wishGrids.forEach((row) => {
+wishGrids.forEach((row, rowIndex) => {
     const cards = [...row.querySelectorAll(":scope > .wish, :scope > .wish-sub")];
-    if (cards.length < 2) return;
+    if (cards.length === 0) return;
     const hoverDevice = window.matchMedia("(hover: hover) and (pointer: fine)");
     const updateHover = () => cards.forEach(card =>
         card.classList.toggle("can-hover", hoverDevice.matches));
     updateHover();
     hoverDevice.addEventListener("change", updateHover);
-    if (cards.length < 2) return;
     row.style.setProperty("--carousel-card-width", `${carouselSettings.cardWidthRem}rem`);
     row.style.setProperty("--carousel-gap", `${carouselSettings.gapRem}rem`);
     row.style.setProperty("--carousel-smoothing", `${carouselSettings.smoothingMs}ms`);
@@ -108,27 +109,39 @@ wishGrids.forEach((row) => {
 
     const controls = document.createElement("div");
     controls.className = "carousel-controls";
+    controls.setAttribute("role", "group");
+    const sectionName = row.closest("section")?.querySelector("h2")?.textContent.trim()
+        || document.querySelector("h1")?.textContent.trim() || "Ønsker";
+    controls.setAttribute("aria-label", `Bla i ${sectionName}`);
     controls.hidden = true;
     const previous = document.createElement("button");
     previous.type = "button";
-    previous.textContent = "←";
+    previous.textContent = "← Forrige";
     previous.setAttribute("aria-label", "Forrige ønske");
     const next = document.createElement("button");
     next.type = "button";
-    next.textContent = "→";
+    next.textContent = "Neste →";
     next.setAttribute("aria-label", "Neste ønske");
-    const dots = cards.map((card, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "carousel-dot";
-        const name = card.querySelector("img")?.alt
-            || card.querySelector("h3")?.textContent.replace("↗", "").trim()
-            || `ønske ${index + 1}`;
-        button.setAttribute("aria-label", `Vis ${name}`);
-        button.addEventListener("click", () => goToCard(index));
-        return button;
+    const navigation = document.createElement("div");
+    navigation.className = "carousel-navigation";
+    const count = document.createElement("span");
+    count.className = "carousel-count";
+    const listToggle = document.createElement("button");
+    listToggle.type = "button";
+    listToggle.className = "carousel-list-toggle";
+    listToggle.textContent = "Vis alle";
+    listToggle.setAttribute("aria-expanded", "false");
+    if (!row.id) row.id = `wish-row-${rowIndex + 1}`;
+    listToggle.setAttribute("aria-controls", row.id);
+    navigation.append(previous, count, next);
+    controls.append(navigation, listToggle);
+    listToggle.addEventListener("click", () => {
+        stopNavigation();
+        const listMode = row.classList.toggle("show-all");
+        listToggle.textContent = listMode ? "Vis som karusell" : "Vis alle";
+        listToggle.setAttribute("aria-expanded", String(listMode));
+        updateCardScales();
     });
-    controls.append(previous, ...dots, next);
     row.after(controls);
     previous.addEventListener("click", () => goToCard((navigationIndex ?? activeIndex) - 1));
     next.addEventListener("click", () => goToCard((navigationIndex ?? activeIndex) + 1));
@@ -179,10 +192,12 @@ wishGrids.forEach((row) => {
 
     function updateCardScales() {
         framePending = false;
-        const horizontal = getComputedStyle(row).overflowX === "auto"
-            && cards.length > 1;
+        const horizontal = getComputedStyle(row).overflowX === "auto";
         row.classList.toggle("is-horizontal", horizontal);
-        controls.hidden = !horizontal || !carouselSettings.showControls;
+        const listView = row.classList.contains("show-all");
+        controls.hidden = (!horizontal && !listView)
+            || !carouselSettings.showControls || cards.length < 2;
+        navigation.hidden = listView;
 
         // Equal end padding lets the first and last cards snap to the middle too.
         if (horizontal) {
@@ -192,7 +207,8 @@ wishGrids.forEach((row) => {
             row.style.removeProperty("--carousel-padding");
         }
 
-        const stride = horizontal
+        // A one-card row has no second slot to measure, but still gets controls.
+        const stride = horizontal && slots.length > 1
             ? Math.max(1, slots[1].offsetLeft - slots[0].offsetLeft)
             : 1;
         const poses = cards.map((card, index) => {
@@ -222,9 +238,7 @@ wishGrids.forEach((row) => {
 
         activeIndex = horizontal ? Math.max(0, Math.min(cards.length - 1,
             Math.round(row.scrollLeft / stride))) : 0;
-        dots.forEach((dot, index) => {
-            dot.setAttribute("aria-current", index === activeIndex ? "true" : "false");
-        });
+        count.textContent = `${activeIndex + 1} av ${cards.length}`;
         previous.disabled = activeIndex === 0;
         next.disabled = activeIndex === cards.length - 1;
     }
@@ -241,6 +255,48 @@ wishGrids.forEach((row) => {
         scheduleScaleUpdate();
     }, { passive: true });
     window.addEventListener("resize", scheduleScaleUpdate);
+    document.addEventListener("visitor-view-changed", scheduleScaleUpdate);
     reducedMotion.addEventListener("change", scheduleScaleUpdate);
     updateCardScales();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Start once, after visitor filtering, so hidden wishes don't use up delays.
+let textRevealStarted = false;
+
+function startTextReveal() {
+    if (textRevealStarted) return;
+    textRevealStarted = true;
+
+    const textSelector = "h1, h2, h3, p, dd, dt, span";
+    const animationElements = [...document.querySelectorAll(textSelector)].filter((element) => {
+        // Decorative icons and shop captions keep their own positioning.
+        if (element.closest('dialog, .reservation-help, .price-note, .shop-action, .new-tab-note, .carousel-controls, .reservation-controls, .link-caption, .button-arrow, .video-play, [aria-hidden="true"]')) {
+            return false;
+        }
+        // Animate a text container once, rather than its nested spans too.
+        if (element.parentElement.closest(textSelector)) return false;
+        return element.textContent.trim() !== "" && element.getClientRects().length > 0;
+    });
+
+    animationElements.forEach((element, index) => {
+        element.style.setProperty("--text-reveal-delay", `${index * 40}ms`);
+        element.classList.add("text-reveal");
+    });
+}
+
+// Product pages have no visitor popup, so their sequence can start immediately.
+if (!document.getElementById("visitor-dialog")) {
+    startTextReveal();
+}

@@ -19,32 +19,61 @@
         </header>
 
         <main>
+            <noscript><p class="reservation-help">Reservasjoner krever JavaScript. Spør meg før du kjøper, så vi unngår dobbeltkjøp.</p></noscript>
             <h1>Hev/senk-skrivebord</h1>
+            <p class="new-tab-summary">Nettbutikkene åpnes i en ny fane. Ønskelisten blir liggende åpen.</p>
+            <p>Bordet består av en bordplate og et elektrisk understell. Begge delene trengs, men de kan gis og reserveres hver for seg.</p>
+            <p class="reservation-help">Reserver før du handler i nettbutikken, og behold reservasjonen etter kjøpet. Spør meg hvis du trenger hjelp med reservasjonen.</p>
+            <p class="price-note">Prisene kan endre seg. Sjekk oppdatert pris og frakt i hver nettbutikk før du betaler.</p>
                 <section class="wish-option">
                     <section class="wish-items">
                         <section class="wish-misc">
                             <article class="wish-sub" id="walnut-sub">
-                                <a class="wish-link" href="https://kontorsenteretostfold.no/products/ny-valnott-rektangulaer-bordplate-platetopp?variant=53059378217242" target="_blank" rel="noopener noreferrer">
-                                    <img class="wish-image wish-image-blend" id="walnut-image" src="../assets/bordplate.png" alt="Bordplate">
-                                    <h3>Valnøtt bordplate (200x80cm) ↗</h3>
-                                    <dl>
-                                        <dd class="price-amount">2&nbsp;612,50&nbsp;kr</dd>
-                                    </dl>
-                                </a>
+                                <div class="wish-link">
+                                    <a class="wish-product-link" href="https://kontorsenteretostfold.no/products/ny-valnott-rektangulaer-bordplate-platetopp?variant=53059378217242" target="_blank" rel="noopener noreferrer">
+                                        <img class="wish-image wish-image-blend" id="walnut-image" src="../assets/bordplate.png" alt="Bordplate">
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                                    <div class="bottom-section-card">
+                                        <a class="wish-product-link bottom-section-card-title" href="https://kontorsenteretostfold.no/products/ny-valnott-rektangulaer-bordplate-platetopp?variant=53059378217242" target="_blank" rel="noopener noreferrer">
+                                            <h3>Valnøtt bordplate (200x80cm) ↗</h3>
+                                            <dl>
+                                            <dd class="price-amount">2&nbsp;612,50&nbsp;kr</dd>
+                                            </dl>
+                                            <span class="shop-action">Se hos Kontorsenteret Østfold ↗</span>
+                                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                        </a>
+                                        <div class="reservation-controls" data-wish-id="desk-walnut-top" data-wish-name="Valnøtt bordplate (200 × 80 cm)">
+                                            <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                            <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </article>
                             <article class="wish-sub">
-                                <a class="wish-link" href="https://www.komplett.no/product/1220854/datautstyr/kontorutstyr-rekvisita/kontormoebler/tilbehoer-til-kontormoebler/tilbehoer-og-deler-til-skrivebord/iiglo-elektrisk-understell-med-minnefunksjon-svart#reviews" target="_blank" rel="noopener noreferrer">
-                                    <img class="wish-image wish-image-blend" id="iiglo-image" src="../assets/iiglo-understell.png" alt="Iiglo understell">
-                                    <h3>Iiglo understell ↗</h3>
-                                    <dl>
-                                        <dd class="price-amount">4&nbsp;199&nbsp;kr</dd>
-                                    </dl>
-                                </a>
+                                <div class="wish-link">
+                                    <a class="wish-product-link" href="https://www.komplett.no/product/1220854/datautstyr/kontorutstyr-rekvisita/kontormoebler/tilbehoer-til-kontormoebler/tilbehoer-og-deler-til-skrivebord/iiglo-elektrisk-understell-med-minnefunksjon-svart#reviews" target="_blank" rel="noopener noreferrer">
+                                        <img class="wish-image wish-image-blend" id="iiglo-image" src="../assets/iiglo-understell.png" alt="Iiglo understell">
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                                    <div class="bottom-section-card">
+                                        <a class="wish-product-link bottom-section-card-title" href="https://www.komplett.no/product/1220854/datautstyr/kontorutstyr-rekvisita/kontormoebler/tilbehoer-til-kontormoebler/tilbehoer-og-deler-til-skrivebord/iiglo-elektrisk-understell-med-minnefunksjon-svart#reviews" target="_blank" rel="noopener noreferrer">
+                                            <h3>Iiglo understell ↗</h3>
+                                            <dl>
+                                            <dd class="price-amount">4&nbsp;199&nbsp;kr</dd>
+                                            </dl>
+                                            <span class="shop-action">Se hos Komplett ↗</span>
+                                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                        </a>
+                                        <div class="reservation-controls" data-wish-id="desk-iiglo-frame" data-wish-name="Iiglo understell">
+                                            <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                            <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </article>
                         </section>
                         <section class="total">
                             <dl>
-                                <dt class="price"><strong>Totalt:</strong></dt>
+                                <dt class="price"><strong>Begge delene til sammen:</strong></dt>
                                 <dd class="price-amount">6&nbsp;811,50&nbsp;kr</dd>
                             </dl>
                         </section>
@@ -81,5 +110,6 @@
                 </section>
         </main>
         <script src="../script.js"></script>
+        <script src="../reservations.js"></script>
     </body>
 </html>

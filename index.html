@@ -16,16 +16,50 @@
 
         <dialog id="visitor-dialog" aria-labelledby="visitor-heading">
             <h2 id="visitor-heading">Hvem er du?</h2>
+            <p class="dialog-intro">Velg hvem du er, så viser jeg de aktuelle ønskene.</p>
             <form>
-                <span>Jeg er...</span>
                 <label for="velg">
+                    <span>Jeg er...</span>
                     <select name="visitorGroup" id="velg" required>
                         <option value="" disabled selected>Velg person</option>
                         <option value="foreldre">Forelder</option>
-                        <option value="andre">Andre</option>
+                        <option value="andre">Besteforelder, familie eller venn</option>
                     </select>
                 </label>
                 <button type="submit" id="submit">Fortsett</button>
+            </form>
+        </dialog>
+
+        <dialog id="foreldre-visitor-dialog" aria-labelledby="foreldre-heading">
+            <h2 id="foreldre-heading">Til dere</h2>
+            <p>
+                Dere får også se hovedønskene mine. Dette er de større
+                ønskene, og selvfølgelig bare forslag, ikke en forventning
+                om å få alt.
+            </p>
+            <p>
+                Reserver gjerne før dere handler, og behold reservasjonen
+                etter kjøpet. Da unngår vi at flere kjøper samme gave.
+            </p>
+            <form method="dialog">
+                <button class="dialog-continue" type="submit">Skjønner, vis ønskene</button>
+            </form>
+        </dialog>
+
+        <dialog id="andre-visitor-dialog" aria-labelledby="andre-heading">
+            <h2 id="andre-heading">Litt praktisk</h2>
+            <p>
+                Reserver gjerne gaven før du handler, så unngår vi
+                dobbeltkjøp. Reservasjonen kjøper ingenting; selve kjøpet
+                gjør du i nettbutikken etterpå. Behold reservasjonen
+                etter at du har kjøpt gaven.
+            </p>
+            <p>
+                Du kan angre reservasjonen fra samme nettleser og enhet.
+                Spør meg hvis du trenger hjelp.
+            </p>
+            <form method="dialog">
+                <button class="dialog-continue" type="submit">Skjønner, vis ønskene</button>
             </form>
         </dialog>
 
@@ -34,7 +68,15 @@
                 Peders ønskeliste
                 <span class="sub-header">Jul 2026</span>
             </h1>
+            <p>Reserver gaven før du handler, så unngår vi dobbeltkjøp.
+                Man kjøper gaven i nettbutikken etterpå. Behold
+                reservasjonen etter at du har kjøpt den.
+            </p>
+            <p class="new-tab-summary">Nettbutikkene åpnes i en ny fane. Ønskelisten blir liggende åpen.</p>
         </header>
+
+        <button onclick="changePerson()" id="change-person">Endre valg</button>
+
         <svg class="branch-art" width="349" height="289" viewBox="-8 -10 349 289" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <defs>
                 <mask id="branch-main-reveal" maskUnits="userSpaceOnUse" x="-8" y="-10" width="349" height="289" style="mask-type: luminance">
@@ -184,33 +226,64 @@
             <path class="branch-leaf" d="M148.366 13.5952C147.303 13.0509 146.131 12.1917 145.548 11.0958C144.823 9.73183 145.011 7.82628 145.237 7.02356C146.282 7.28686 147.895 8.24751 148.43 9.60615C148.977 10.9924 148.653 12.5176 148.366 13.5952ZM148.366 13.5952C148.036 12.6324 147.844 12.2731 147.701 11.9557M147.701 11.9557C147.589 11.7079 147.224 10.9272 147.05 10.5753M147.701 11.9557L148.181 10.948M147.701 11.9557L146.587 11.7803M147.05 10.5753L147.548 9.60695M147.05 10.5753L145.986 10.5532M147.05 10.5753C146.927 10.3258 146.72 9.82851 146.456 9.32409M146.456 9.32409C146.211 8.85585 145.907 8.26103 145.854 8.16008M146.456 9.32409L146.785 8.48392M146.456 9.32409L145.52 9.1916" fill="none" stroke="currentColor" stroke-width="0.3" stroke-linecap="round" style="--leaf-x: 148.366px; --leaf-y: 13.595px; --branch-delay: 1.993s"/>
         </svg>
         <main>
-            <section class="wishlist hovedonsker" id="hovedonsker">
-                <h2>Hovedønsker</h2>
+            <noscript><p class="reservation-help">Reservasjoner krever JavaScript. Spør meg før du kjøper, så vi unngår dobbeltkjøp.</p></noscript>
+            <section class="wishlist hovedonsker" id="hovedonsker" data-audience="foreldre">
+                <h2 data-audience="foreldre">Hovedønsker<span>  (bare synlig for foreldre)</span></h2>
 
                 <div class="wish-grid">
                     <!-- Kopier en hel article-blokk for å legge til et ønske. -->
                     <article class="wish" data-audience="foreldre">
-                        <a class="wish-link" href="products/moergo-go60.html">
-                            <img class="wish-image" src="assets/go60.webp" alt="MoErgo Go60">
-                            <h3>MoErgo Go60</h3>
-                            <span>Fra 2&nbsp;850&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="products/moergo-go60.html">
+                                <img class="wish-image" src="assets/go60.webp" alt="MoErgo Go60">
+                            </a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="products/moergo-go60.html">
+                                    <h3>MoErgo Go60</h3>
+                                    <span>Fra 2&nbsp;850&nbsp;kr</span>
+                                    <span class="shop-action">Se detaljer</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="go60" data-wish-name="MoErgo Go60">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="wish" data-audience="foreldre">
-                        <a class="wish-link" href="https://www.multicom.no/sihoo-s100-ergonomisk-kontorstol-svart/cat-p/c/p1500045471" target="_blank" rel="noopener noreferrer">
-                            <img class="wish-image" id="image-chair" src="assets/chair.webp" alt="Sihoo S100">
-                            <h3>Sihoo S100</h3>
-                            <span>4&nbsp;495&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.multicom.no/sihoo-s100-ergonomisk-kontorstol-svart/cat-p/c/p1500045471" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image" id="image-chair" src="assets/chair.webp" alt="Sihoo S100">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.multicom.no/sihoo-s100-ergonomisk-kontorstol-svart/cat-p/c/p1500045471" target="_blank" rel="noopener noreferrer">
+                                    <h3>Sihoo S100</h3>
+                                    <span>4&nbsp;495&nbsp;kr</span>
+                                    <span class="shop-action">Se hos Multicom ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="sihoo-s100" data-wish-name="Sihoo S100">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="wish" data-audience="foreldre">
-                        <a class="wish-link" id="hev-senk-skrivebord" href="products/hev-senk-skrivebord.html">
-                            <img class="wish-image" src="assets/skrivebord.webp" alt="Skrivebord">
-                            <h3>Skrivebord</h3>
-                            <span>Fra 4&nbsp;199&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" id="hev-senk-skrivebord" href="products/hev-senk-skrivebord.html">
+                                <img class="wish-image" src="assets/skrivebord.webp" alt="Skrivebord">
+                            </a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="products/hev-senk-skrivebord.html">
+                                    <h3>Skrivebord</h3>
+                                    <span>Totalt ca. 6&nbsp;811,50&nbsp;kr</span>
+                                    <p>Se detaljer ↗</p>
+                                </a>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </section>
@@ -223,19 +296,78 @@
 
 
                     <article class="wish">
-                        <a class="wish-link" href="products/skjermholder.html">
-                            <img class="wish-image" src="assets/LDT115.webp" alt="skjermholder">
-                            <h3>Skjermholdere</h3>
-                            <span>Fra 599&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="products/skjermholder.html">
+                                <img class="wish-image" src="assets/LDT115.webp" alt="skjermholder">
+                            </a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="products/skjermholder.html">
+                                    <h3>Skjermholdere</h3>
+                                    <span>Fra 599&nbsp;kr</span>
+                                    <p>Se detaljer ↗</p>
+                                </a>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="wish">
-                        <a class="wish-link" href="https://www.maxgaming.no/no/laptop-stativ/360-roterbar-sammenleggbar-laptopstativ?" target="_blank" rel="noopener noreferrer">
-                            <img class="wish-image" src="assets/monitor-stand.webp" alt="skjermholder">
-                            <h3>Laptopstativ</h3>
-                            <span>399&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.ikea.com/no/no/p/fjaellbo-vegghylle-svart-80421247/" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image" src="assets/musematte.webp" alt="Musematte">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.elkjop.no/product/pc-datautstyr-og-kontor/pc-tilbehor/mus-tastatur/musematte/glorious-mouse-pad-2-xxl/922389" target="_blank" rel="noopener noreferrer">
+                                    <h3>Musematte</h3>
+                                    <span>419&nbsp;kr</span>
+                                    <span class="shop-action">Se hos Elkjøp ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="musematte" data-wish-name="Musematte">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="wish">
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.ikea.com/no/no/p/fjaellbo-vegghylle-svart-80421247/" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image" src="assets/hylle.webp" alt="Vegghylle">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.ikea.com/no/no/p/fjaellbo-vegghylle-svart-80421247/" target="_blank" rel="noopener noreferrer">
+                                    <h3>Vegghylle</h3>
+                                    <span>399&nbsp;kr</span>
+                                    <span class="shop-action">Se hos IKEA ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="vegghylle" data-wish-name="Vegghylle">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="wish">
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.maxgaming.no/no/laptop-stativ/360-roterbar-sammenleggbar-laptopstativ?" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image" src="assets/monitor-stand.webp" alt="Sammenleggbart laptopstativ">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.maxgaming.no/no/laptop-stativ/360-roterbar-sammenleggbar-laptopstativ?" target="_blank" rel="noopener noreferrer">
+                                    <h3>Laptopstativ</h3>
+                                    <span>399&nbsp;kr</span>
+                                    <span class="shop-action">Se hos MaxGaming ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="laptop-stand" data-wish-name="Laptopstativ">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
 
@@ -251,44 +383,136 @@
                 <div class="wish-grid">
 
                     <article class="wish">
-                        <a class="wish-link" href="products/fluebinding.html">
-                            <img class="wish-image" src="assets/fluebinding1/vice.png" alt="Danica bindestikke til fluebinding">
-                            <h3>Fluebinding</h3>
-                            <span>-se mer-</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="products/fluebinding.html">
+                                <img class="wish-image" src="assets/fluebinding1/vice.png" alt="Danica bindestikke til fluebinding">
+                            </a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="products/fluebinding.html">
+                                    <h3>Fluebinding</h3>
+                                    <p>Se detaljer ↗</p>
+                                </a>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="wish">
-                        <a class="wish-link" href="https://www.baardsen.no/fishpond-riverkeeper-digital-thermometer" target="_blank" rel="noopener noreferrer">
-                            <img class="wish-image" id="image-line" src="assets/thermometer.webp" alt="Termometer">
-                            <h3>Termometer (fiske)</h3>
-                            <span>499&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.baardsen.no/fishpond-riverkeeper-digital-thermometer" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image image-line" src="assets/thermometer.webp" alt="Termometer">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.baardsen.no/fishpond-riverkeeper-digital-thermometer" target="_blank" rel="noopener noreferrer">
+                                    <h3>Termometer (fiske)</h3>
+                                    <span>499&nbsp;kr</span>
+                                    <span class="shop-action">Se hos Baardsen ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="fishing-thermometer" data-wish-name="Termometer (fiske)">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="wish">
-                        <a class="wish-link" href="products/fortom.html">
-                            <img class="wish-image" id="image-line" src="assets/fortom.png" alt="Fortom til fluefiske">
-                            <h3>Fortom</h3>
-                            <span>99&nbsp;kr stk.</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="products/fortom.html">
+                                <img class="wish-image image-line" src="assets/fortom.png" alt="Fortom til fluefiske">
+                            </a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="products/fortom.html">
+                                    <h3>Fortom</h3>
+                                    <span>99&nbsp;kr stk.</span>
+                                    <p>Se detaljer ↗</p>
+                                </a>
+                            </div>
+                        </div>
                     </article>
  
                     <article class="wish">
-                        <a class="wish-link" href="https://www.tfisk.no/produkt/fluefiske/tilbehor-1/guideline-magnetic-netkeeper-grey" target="_blank" rel="noopener noreferrer">
-                            <img class="wish-image" id="image-line" src="assets/net-holder.png" alt="Fortom til fluefiske">
-                            <h3>Håvholder</h3>
-                            <span>229&nbsp;kr</span>
-                        </a>
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.tfisk.no/produkt/fluefiske/tilbehor-1/guideline-magnetic-netkeeper-grey" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image image-line" src="assets/net-holder.png" alt="Magnetisk håvholder">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.tfisk.no/produkt/fluefiske/tilbehor-1/guideline-magnetic-netkeeper-grey" target="_blank" rel="noopener noreferrer">
+                                    <h3>Håvholder</h3>
+                                    <span>229&nbsp;kr</span>
+                                    <span class="shop-action">Se hos Trøndersk Fluefiskesenter ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="magnetic-net-holder" data-wish-name="Håvholder">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
                     </article>
 
                 </div>
 
+            </section>
+
+            <section class="wishlist">
+                <h2>Mer</h2>
+
+
+                <div class="wish-grid">
+
+                    <article class="wish">
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://linnwold.no/product/palmer" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image" src="assets/plakat.webp" alt="Plakat av palmer">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://linnwold.no/product/palmer" target="_blank" rel="noopener noreferrer">
+                                    <h3>Plakat - 50 x 70 cm</h3>
+                                    <span>742,5&nbsp;kr</span>
+                                    <span class="shop-action">Se hos Linnwold ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="plakat-palmer" data-wish-name="Plakat av palmer">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+
+                    <article class="wish">
+                        <div class="wish-link">
+                            <a class="wish-product-link" href="https://www.ark.no/produkt/the-name-of-the-wind-9781399614948" target="_blank" rel="noopener noreferrer">
+                                <img class="wish-image" src="assets/the-name-of-the-windjpg.jpg" alt="The Name of the Wind">
+                            <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span></a>
+                            <div class="bottom-section-card">
+                                <a class="wish-product-link bottom-section-card-title" href="https://www.ark.no/produkt/the-name-of-the-wind-9781399614948" target="_blank" rel="noopener noreferrer">
+                                    <h3>The Name of the Wind</h3>
+                                    <span>429&nbsp;kr</span>
+                                    <span class="shop-action">Se hos ARK ↗</span>
+                                    <span class="new-tab-note visually-hidden"> (åpnes i ny fane)</span>
+                                </a>
+                                <div class="reservation-controls" data-wish-id="book-name-of-the-wind" data-wish-name="The Name of the Wind">
+                                    <p class="reservation-status" role="status">Sjekker reservasjon…</p>
+                                    <button class="reservation-button" type="button" disabled>Vent litt…</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    
+
+                </div>
 
             </section>
 
+            <p class="price-note">Prisene er veiledende. Se nettbutikken for frakt og endelig pris.</p>
+            <p class="reservation-help">Du kan angre reservasjonen fra samme nettleser og enhet. Spør meg hvis du trenger hjelp.</p>
         </main>
         <script src="script.js"></script>
         <script src="dialog.js"></script>
+        <script src="reservations.js"></script>
     </body>
 </html>
