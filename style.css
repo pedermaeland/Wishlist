@@ -689,6 +689,8 @@ go60-color-image {
 .wish-image {
     display: block;
     position: relative;
+    width: 100%;
+    max-width: 100%;
     object-fit: cover;
     margin-bottom: minmax(0.5rem, auto);
     margin-top: auto;
@@ -1496,6 +1498,138 @@ select:focus-visible {
 
 .reservation-controls .reservation-help[hidden] {
     display: none;
+}
+
+/* Center reserved states while keeping available cards' status placement. */
+.reservation-controls.is-reserved {
+    justify-items: center;
+}
+
+.reservation-controls.is-reserved :is(.reservation-status, .reservation-help) {
+    text-align: center;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+/* Monitor contribution: physical screen sizes and pixel dimensions. */
+.screen-contribution {
+    max-width: 60rem;
+    margin-inline: auto;
+}
+
+.screen-contribution .wish-info :is(h2, p) {
+    margin-inline: 0;
+    max-width: 72ch;
+}
+
+/* All three panels are 16:9, so their widths follow their diagonal sizes. */
+.screen-contribution .monitor-setup {
+    display: grid;
+    grid-template-columns: 27fr 32fr 23.8fr;
+    align-items: end;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    max-width: 44rem;
+    margin: 2rem 0;
+}
+
+.screen-contribution .monitor-preview {
+    min-width: 0;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.screen-contribution .monitor-new {
+    color: var(--color-accent);
+}
+
+.screen-contribution .monitor-frame {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 1.5rem;
+    border: 2px solid currentColor;
+    border-radius: 0.25rem;
+    background: var(--color-surface);
+    font-size: clamp(0.9rem, 3vw, 1.75rem);
+}
+
+.screen-contribution .monitor-new .monitor-frame {
+    background: var(--color-accent-soft);
+}
+
+/* A short stem and base keep the drawing recognizable as a monitor. */
+.screen-contribution .monitor-frame::before,
+.screen-contribution .monitor-frame::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+}
+
+.screen-contribution .monitor-frame::before {
+    top: 100%;
+    left: calc(50% - 1px);
+    width: 2px;
+    height: 0.65rem;
+}
+
+.screen-contribution .monitor-frame::after {
+    top: calc(100% + 0.65rem);
+    left: 30%;
+    width: 40%;
+    height: 2px;
+}
+
+.screen-contribution .monitor-preview strong,
+.screen-contribution .monitor-preview small {
+    display: block;
+    font-size: clamp(0.65rem, 1.8vw, 0.875rem);
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.screen-contribution .resolution-comparison {
+    position: relative;
+    width: 100%;
+    max-width: 44rem;
+    aspect-ratio: 16 / 9;
+    margin: 1.5rem 0;
+}
+
+.screen-contribution .resolution-area {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: 1px solid var(--color-accent);
+    color: var(--color-text);
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    line-height: 1.3;
+}
+
+.screen-contribution .resolution-4k {
+    width: 100%;
+    height: 100%;
+    background: var(--color-surface-muted);
+}
+
+/* 2560 / 3840 and 1440 / 2160 are both 2/3. */
+.screen-contribution .resolution-1440p {
+    width: calc(100% * 2 / 3);
+    height: calc(100% * 2 / 3);
+    background: var(--color-surface);
+}
+
+/* 1920 / 3840 and 1080 / 2160 are both 1/2. */
+.screen-contribution .resolution-1080p {
+    width: 50%;
+    height: 50%;
+    background: var(--color-background);
 }
 
 .purchase-checklist {

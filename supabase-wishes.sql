@@ -10,6 +10,7 @@ values
     ('fishing-thermometer', 'Termometer (fiske)'),
     ('magnetic-net-holder', 'Håvholder'),
     ('book-name-of-the-wind', 'The Name of the Wind'),
+    ('arc-pulse-iphone-16-pro-silver', 'Arc Pulse til iPhone 16 Pro – sølv'),
     ('monitor-arm-ldt115', 'Heavy-Duty (LDT115)'),
     ('monitor-arm-slim-v2', 'SLIM V2'),
     ('monitor-arm-hercules', 'MaxMount Hercules'),

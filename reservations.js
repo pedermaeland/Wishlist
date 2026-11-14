@@ -133,7 +133,7 @@ function renderReservations() {
         } else if (wish.reserved_by_you) {
             status = "Reservert av deg";
             label = "Angre reservasjon";
-            help = "Behold reservasjonen etter kjøpet. Du kan angre her fra samme nettleser og enhet.";
+            help = "Behold reservasjonen etter kjøpet.";
         } else if (wish.is_reserved) {
             status = "Reservert av noen andre";
             label = "Reservert";
@@ -147,6 +147,8 @@ function renderReservations() {
         setReservationText(control.help, help);
         control.help.hidden = help === "";
         control.element.classList.toggle("has-long-status", status !== "Ledig");
+        control.element.classList.toggle("is-reserved", !reservationLoadFailed
+            && (wish?.is_reserved === true || wish?.reserved_by_you === true));
         setReservationText(control.button, label);
         control.button.disabled = disabled;
         control.button.setAttribute("aria-label", `${label}: ${control.name}`);

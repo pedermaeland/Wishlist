@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+    <title>Skjerm med kode og forhåndsvisning</title>
+    <!-- En generell illustrasjon, ikke en bestemt skjermmodell. -->
+    <path d="M222 246h36l8 46h-52z" fill="#594138"/>
+    <path d="M178 292h124" fill="none" stroke="#d0aa79" stroke-width="8" stroke-linecap="round"/>
+    <rect x="20" y="24" width="440" height="228" rx="14" fill="#211713" stroke="#d0aa79" stroke-width="4"/>
+    <rect x="32" y="36" width="416" height="196" rx="5" fill="#120d0b"/>
+    <!-- Kodeeditor til venstre. -->
+    <rect x="40" y="44" width="190" height="180" rx="4" fill="#2e211c"/>
+    <path d="M40 64h190M60 72v140" stroke="#594138" stroke-width="2"/>
+    <g fill="none" stroke-width="5" stroke-linecap="round">
+        <path d="M74 83h62m-52 17h94m-84 17h61m-71 17h108m-98 17h71m-81 17h94m-104 17h62m-72 17h42" stroke="#d0aa79"/>
+        <path d="M148 83h25m-7 34h21m-11 34h26m-14 34h20" stroke="#bd8178"/>
+    </g>
+    <!-- Forhåndsvisning i et eget vindu til høyre. -->
+    <rect x="238" y="44" width="202" height="180" rx="4" fill="#f3eadf"/>
+    <path d="M238 64h202" stroke="#c7b5a8" stroke-width="2"/>
+    <g fill="#594138">
+        <circle cx="250" cy="54" r="2"/>
+        <circle cx="258" cy="54" r="2"/>
+        <circle cx="266" cy="54" r="2"/>
+    </g>
+    <rect x="254" y="80" width="130" height="8" rx="4" fill="#594138"/>
+    <rect x="254" y="97" width="90" height="4" rx="2" fill="#a58b77"/>
+    <rect x="254" y="117" width="78" height="88" rx="8" fill="#d0aa79"/>
+    <rect x="346" y="117" width="78" height="88" rx="8" fill="#c7b5a8"/>
+    <path d="M266 187h44m48 0h44" fill="none" stroke="#594138" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="240" cy="242" r="2" fill="#d0aa79"/>
+</svg>
