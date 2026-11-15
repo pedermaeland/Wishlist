@@ -300,3 +300,37 @@ function startTextReveal() {
 if (!document.getElementById("visitor-dialog")) {
     startTextReveal();
 }
+
+// Homepage only: jump to the next visible category, respecting the visitor's view.
+const moreWishesButton = document.querySelector(".more-wishes");
+
+if (moreWishesButton) {
+    const categories = [...document.querySelectorAll("main > .wishlist")];
+
+    function nextCategory() {
+        const visibleCategories = categories.filter(category => category.getClientRects().length > 0);
+        return visibleCategories.slice(1).find(category =>
+            category.querySelector("h2").getBoundingClientRect().top > window.innerHeight * 0.35);
+    }
+
+    function updateMoreWishes() {
+        moreWishesButton.hidden = !nextCategory();
+    }
+
+    moreWishesButton.addEventListener("click", () => {
+        const heading = nextCategory()?.querySelector("h2");
+        if (!heading) return;
+        heading.setAttribute("tabindex", "-1");
+        heading.focus({ preventScroll: true });
+        heading.scrollIntoView({
+            behavior: reducedMotion.matches ? "instant" : "smooth",
+            block: "start",
+        });
+    });
+
+    document.addEventListener("scroll", updateMoreWishes, { passive: true, capture: true });
+    window.addEventListener("resize", updateMoreWishes);
+    window.addEventListener("load", updateMoreWishes);
+    document.addEventListener("visitor-view-changed", updateMoreWishes);
+    updateMoreWishes();
+}

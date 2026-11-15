@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="branch.css">
     </head>
-    <body>
+    <body class="wishlist-home">
 
         <dialog id="visitor-dialog" aria-labelledby="visitor-heading">
             <h2 id="visitor-heading">Hvem er du?</h2>
@@ -32,50 +32,30 @@
 
         <dialog id="foreldre-visitor-dialog" aria-labelledby="foreldre-heading">
             <h2 id="foreldre-heading">Til dere</h2>
-            <p>
-                Dere får også se hovedønskene mine. Dette er de større
-                ønskene, og selvfølgelig bare forslag, ikke en
-                forventing om å få noe.
+            <p class="dialog-instruction">
+                <strong>Reserver først. Kjøp i nettbutikken etterpå.</strong>
             </p>
             <p>
-                Reserver gjerne før dere handler, og behold reservasjonen
-                etter kjøpet. Da unngår vi at flere kjøper samme gave.
+                Behold reservasjonen etter kjøpet. Du kan angre fra samme enhet og nettleser.
             </p>
             <p>
-                <strong>
-                    Reservasjonene blir husket lokalt. Ikke bruk denne siden
-                    i Incognito modus eller bytt nettleser. For å angre en
-                    reservasjon må du bruke samme nettleser på samme enhet
-                    som den du reserverte gaven med.
-                </strong>
+                Dere får også se de større ønskene mine. De er bare forslag!
             </p>
             <form method="dialog">
-                <button class="dialog-continue" type="submit">Skjønner, vis ønskene</button>
+                <button class="dialog-continue" type="submit">Vis ønskene</button>
             </form>
         </dialog>
 
         <dialog id="andre-visitor-dialog" aria-labelledby="andre-heading">
             <h2 id="andre-heading">Litt praktisk</h2>
-            <p>
-                Reserver gjerne gaven før du handler, så unngår vi
-                dobbeltkjøp. Reservasjonen kjøper ingenting; selve kjøpet
-                gjør du i nettbutikken etterpå. Behold reservasjonen
-                etter at du har kjøpt gaven.
+            <p class="dialog-instruction">
+                <strong>Reserver først. Kjøp i nettbutikken etterpå.</strong>
             </p>
             <p>
-                Du kan angre reservasjonen fra samme nettleser og enhet.
-                Spør meg hvis du trenger hjelp.
-            </p>
-            <p>
-                <strong>
-                    Reservasjonene blir husket lokalt. Ikke bruk denne siden
-                    i Incognito modus eller bytt nettleser. For å angre en
-                    reservasjon må du bruke samme nettleser på samme enhet
-                    som den du reserverte gaven med.
-                </strong>
+                Behold reservasjonen etter kjøpet. Du kan angre fra samme enhet og nettleser.
             </p>
             <form method="dialog">
-                <button class="dialog-continue" type="submit">Skjønner, vis ønskene</button>
+                <button class="dialog-continue" type="submit">Vis ønskene</button>
             </form>
         </dialog>
 
@@ -84,19 +64,7 @@
                 Peders ønskeliste
                 <span class="sub-header">Jul 2026</span>
             </h1>
-            <p>Reserver gaven før du handler, så unngår vi dobbeltkjøp.
-                Man kjøper gaven i nettbutikken etterpå. Behold
-                reservasjonen etter at du har kjøpt den.
-            </p>
-            <p>
-                <strong>
-                    Reservasjonene blir husket lokalt. Ikke bruk denne siden
-                    i Incognito modus eller bytt nettleser. For å angre en
-                    reservasjon må du bruke samme nettleser på samme enhet
-                    som den du reserverte gaven med.
-                </strong>
-            </p>
-            <p class="new-tab-summary">Nettbutikkene åpnes i en ny fane. Ønskelisten blir liggende åpen.</p>
+            <p>Jeg har laget denne nettsiden selv for å samle juleønskene mine.</p>
         </header>
 
         <button onclick="changePerson()" id="change-person">Endre valg</button>
@@ -560,9 +528,27 @@
 
             </section>
 
-            <p class="price-note">Prisene er veiledende. Se nettbutikken for frakt og endelig pris.</p>
-            <p class="reservation-help">Du kan angre reservasjonen fra samme nettleser og enhet. Spør meg hvis du trenger hjelp.</p>
         </main>
+
+        <footer class="site-footer wishlist-help" aria-labelledby="reservation-help-heading">
+            <h2 id="reservation-help-heading">Om reservasjon</h2>
+            <p>
+                Reserver gaven før du handler, så unngår vi dobbeltkjøp.
+                Selve kjøpet gjør du i nettbutikken. Behold reservasjonen etter kjøpet.
+            </p>
+            <p>
+                For å angre må du bruke samme nettleser på samme enhet som da du
+                reserverte. Unngå privat nettlesing (inkognitomodus).
+                Spør meg hvis du trenger hjelp.
+            </p>
+            <p class="new-tab-summary">Nettbutikkene åpnes i en ny fane. Ønskelisten blir liggende åpen.</p>
+            <p class="price-note">Prisene er veiledende. Se nettbutikken for frakt og endelig pris.</p>
+        </footer>
+
+        <button class="more-wishes" type="button" hidden>
+            Flere ønsker <span class="button-arrow" aria-hidden="true">↓</span>
+        </button>
+
         <script src="script.js"></script>
         <script src="dialog.js"></script>
         <script src="reservations.js"></script>

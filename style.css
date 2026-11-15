@@ -169,6 +169,13 @@ dialog h2 {
     font-size: clamp(1.5rem, 8vw, 4rem);
 }
 
+dialog .dialog-instruction {
+    color: var(--color-accent);
+    font-size: 1.125rem;
+    line-height: 1.45;
+    margin-block: 1.25rem 0.75rem;
+}
+
 dialog span {
     font-size: clamp(0.75rem, 4vw, 2rem);
 }
@@ -280,6 +287,66 @@ nav a {
     border-top: 1px solid var(--color-border);
     padding: 1rem 0;
     font-size: 0.9rem;
+}
+
+.wishlist-help {
+    max-width: 65ch;
+    margin-top: 2rem;
+}
+
+.wishlist-help h2 {
+    font-size: 1.1rem;
+}
+
+/* A quiet cue for the categories below the current screen. */
+.more-wishes {
+    position: fixed;
+    z-index: 200;
+    inset-inline-start: 50%;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    translate: -50% 0;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-accent);
+    box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 25%);
+    font: inherit;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.more-wishes[hidden] {
+    display: none;
+}
+
+body:has(dialog[open]) .more-wishes {
+    visibility: hidden;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .more-wishes:hover {
+        background: var(--color-surface-muted);
+        color: var(--color-accent-hover);
+    }
+}
+
+/* Leave room for the floating cue when tabbing to controls near the bottom. */
+.wishlist-home :is(a, button, select) {
+    scroll-margin-bottom: 5rem;
+}
+
+.wishlist-home .wishlist {
+    margin-bottom: 2rem;
+}
+
+.wishlist-home .wishlist > h2 {
+    scroll-margin-top: 1rem;
 }
 
 /* ==========================================================
