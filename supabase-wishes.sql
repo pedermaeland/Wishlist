@@ -6,6 +6,7 @@ insert into public.wishes (id, name)
 values
     ('go60', 'MoErgo Go60'),
     ('sihoo-s100', 'Sihoo S100'),
+    ('xiaomi-monitor-light-bar', 'Xiaomi Mi Computer Monitor Light Bar'),
     ('laptop-stand', 'Laptopstativ'),
     ('fishing-thermometer', 'Termometer (fiske)'),
     ('magnetic-net-holder', 'Håvholder'),
