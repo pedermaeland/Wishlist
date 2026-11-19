@@ -7,6 +7,7 @@ values
     ('go60', 'MoErgo Go60'),
     ('sihoo-s100', 'Sihoo S100'),
     ('xiaomi-monitor-light-bar', 'Xiaomi Mi Computer Monitor Light Bar'),
+    ('ugreen-7-in-1-usb-c-hub', 'UGREEN 7-i-1 USB-C-hub'),
     ('laptop-stand', 'Laptopstativ'),
     ('fishing-thermometer', 'Termometer (fiske)'),
     ('magnetic-net-holder', 'Håvholder'),
